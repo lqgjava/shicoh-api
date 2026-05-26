@@ -7,26 +7,26 @@ require('dotenv').config();
 // 先加载数据库模块（会自动初始化）
 const { db } = require('./db');
 
-// 确保必要目录存在
-const uploadsDir = path.join(__dirname, 'uploads');
-if (!fs.existsSync(uploadsDir)) {
-    fs.mkdirSync(uploadsDir, { recursive: true });
-}
-const dataDir = path.join(__dirname, 'data');
-if (!fs.existsSync(dataDir)) {
-    fs.mkdirSync(dataDir, { recursive: true });
-}
-
 const app = express();
 const PORT = process.env.PORT || 3002;
 
+// 判断运行环境
+const isVercel = !!process.env.VERCEL;
+
 // 中间件
 app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
-// 静态文件服务
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+// 静态文件服务 - 仅在本地环境提供上传图片的访问
+// Vercel 环境下图片存储在 Vercel Blob，URL 是外部链接
+if (!isVercel) {
+    const uploadsDir = path.join(__dirname, 'uploads');
+    if (!fs.existsSync(uploadsDir)) {
+        fs.mkdirSync(uploadsDir, { recursive: true });
+    }
+    app.use('/uploads', express.static(uploadsDir));
+}
 
 // 路由
 app.use('/api/auth', require('./routes/auth'));
@@ -64,7 +64,13 @@ app.use((err, req, res, next) => {
   res.status(500).json({ code: 500, message: '服务器内部错误' });
 });
 
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`服务器运行在 http://0.0.0.0:${PORT}`);
-  console.log(`环境: ${process.env.NODE_ENV || 'development'}`);
-});
+// 本地开发时启动服务器，Vercel 环境下不启动（由 Vercel 管理）
+if (!isVercel) {
+  app.listen(PORT, '0.0.0.0', () => {
+    console.log(`服务器运行在 http://0.0.0.0:${PORT}`);
+    console.log(`环境: development`);
+  });
+}
+
+// 导出 app 供 Vercel Serverless Function 使用
+module.exports = app;

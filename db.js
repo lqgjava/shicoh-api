@@ -1,18 +1,40 @@
 /**
  * JSON 文件数据库 - 数据持久化存储
  * 数据保存在 data/ 目录下的 JSON 文件中
+ * 
+ * Vercel Serverless 环境：数据存储在 /tmp/data/（可写但冷启动会重置）
+ * 本地开发环境：数据存储在 data/（持久化）
  */
 
 const fs = require('fs');
 const path = require('path');
 const bcrypt = require('bcryptjs');
 
-// 数据目录
-const DATA_DIR = path.join(__dirname, 'data');
+// 判断运行环境
+const isVercel = !!process.env.VERCEL;
+
+// 数据目录：Vercel 使用 /tmp/data，本地使用项目下的 data/
+const DATA_DIR = isVercel ? '/tmp/shicoh-data' : path.join(__dirname, 'data');
+const SOURCE_DATA_DIR = path.join(__dirname, 'data'); // 部署包中的原始数据
 
 // 确保数据目录存在
 if (!fs.existsSync(DATA_DIR)) {
     fs.mkdirSync(DATA_DIR, { recursive: true });
+}
+
+// Vercel 冷启动时，从部署包拷贝初始数据到 /tmp
+if (isVercel && fs.existsSync(SOURCE_DATA_DIR)) {
+    const dataFiles = fs.readdirSync(SOURCE_DATA_DIR).filter(f => f.endsWith('.json'));
+    for (const file of dataFiles) {
+        const targetPath = path.join(DATA_DIR, file);
+        if (!fs.existsSync(targetPath)) {
+            try {
+                fs.copyFileSync(path.join(SOURCE_DATA_DIR, file), targetPath);
+            } catch (err) {
+                console.error(`拷贝初始数据失败: ${file}`, err.message);
+            }
+        }
+    }
 }
 
 // 数据文件路径
@@ -353,13 +375,11 @@ const dbAsync = {
                     const table = match[1];
                     const whereClause = match[3];
                     
-                    // 提取 WHERE 条件 (假设是 id = ?)
                     const whereMatch = whereClause.match(/(\w+) = \?/);
                     if (whereMatch && whereMatch[1] === 'id') {
                         const id = params[params.length - 1];
                         const index = (db[table] || []).findIndex(item => item.id === id);
                         if (index !== -1) {
-                            // 解析 SET 子句，更新字段
                             const setMatch = match[2].match(/(\w+) = \?/g);
                             if (setMatch) {
                                 setMatch.forEach((setItem, idx) => {
