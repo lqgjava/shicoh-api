@@ -1,0 +1,62 @@
+[
+  {
+    "id": "1",
+    "name": "ABB",
+    "logo": "/uploads/1779763634651-295736669.png",
+    "website": "",
+    "sort": 1,
+    "enabled": 1,
+    "created_at": "2026-05-25T03:27:57.278Z",
+    "updated_at": "2026-05-26T02:47:16.596Z"
+  },
+  {
+    "id": "2",
+    "name": "SIEMENS",
+    "logo": "/uploads/1779763641888-545135896.jpg",
+    "website": "",
+    "sort": 2,
+    "enabled": 1,
+    "created_at": "2026-05-25T03:27:57.278Z",
+    "updated_at": "2026-05-26T02:47:22.874Z"
+  },
+  {
+    "id": "3",
+    "name": "SCHNEIDER",
+    "logo": "/uploads/1779763650625-891755321.png",
+    "website": "",
+    "sort": 3,
+    "enabled": 1,
+    "created_at": "2026-05-25T03:27:57.278Z",
+    "updated_at": "2026-05-26T02:47:31.535Z"
+  },
+  {
+    "id": "4",
+    "name": "BOSCH",
+    "logo": "/uploads/1779763658250-307767726.png",
+    "website": "",
+    "sort": 4,
+    "enabled": 1,
+    "created_at": "2026-05-25T03:27:57.278Z",
+    "updated_at": "2026-05-26T02:47:41.122Z"
+  },
+  {
+    "id": "5",
+    "name": "PANASONIC",
+    "logo": "/uploads/1779763668293-783430104.png",
+    "website": "",
+    "sort": 5,
+    "enabled": 1,
+    "created_at": "2026-05-25T03:27:57.278Z",
+    "updated_at": "2026-05-26T02:47:49.278Z"
+  },
+  {
+    "id": "6",
+    "name": "MITSUBISHI",
+    "logo": "/uploads/1779763674984-47779473.png",
+    "website": "",
+    "sort": 6,
+    "enabled": 1,
+    "created_at": "2026-05-25T03:27:57.278Z",
+    "updated_at": "2026-05-26T02:47:55.923Z"
+  }
+]

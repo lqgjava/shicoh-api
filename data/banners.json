@@ -1,0 +1,46 @@
+[
+  {
+    "id": "1",
+    "title": "创新驱动 精工制造",
+    "subtitle": "新思考电机专注于各类微特电机的研发、生产与销售",
+    "image": "/uploads/1779763526233-767550061.png",
+    "link": "#about",
+    "sort": 1,
+    "enabled": 1,
+    "created_at": "2026-05-22T04:28:35.839Z",
+    "updated_at": "2026-05-26T03:03:55.622Z"
+  },
+  {
+    "id": "2",
+    "title": "智能制造 引领未来",
+    "subtitle": "拥有全自动化生产线和智能检测系统",
+    "image": "/uploads/1779763535127-644265729.jpg",
+    "link": "#products",
+    "sort": 2,
+    "enabled": 1,
+    "created_at": "2026-05-22T04:28:35.839Z",
+    "updated_at": "2026-05-26T03:04:06.836Z"
+  },
+  {
+    "id": "3",
+    "title": "全球合作 互利共赢",
+    "subtitle": "产品远销全球50多个国家和地区",
+    "image": "/uploads/1779763543127-490411101.png",
+    "link": "#news",
+    "sort": 3,
+    "enabled": 1,
+    "created_at": "2026-05-22T04:28:35.839Z",
+    "updated_at": "2026-05-26T03:04:13.827Z"
+  },
+  {
+    "id": "e8ce61ae-ff87-4fc5-88e3-b4b7f48ceb95",
+    "title": "智能制造 引领未来",
+    "subtitle": "智能制造 引领未来",
+    "image": "/uploads/1779763553713-258219229.png",
+    "link": "#智能制造 引领未来",
+    "sort": 4,
+    "enabled": 1,
+    "created_at": "2026-05-22T07:08:02.225Z",
+    "updated_at": "2026-05-26T03:04:21.118Z"
+  }
+]
